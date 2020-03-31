@@ -1,0 +1,23 @@
+# this is an auto generated file. This will be overwritten
+
+query Organization($id: ID!) {
+  organization(id: $id) {
+    companies {
+      id
+      name
+      organization {
+        id
+        name
+      }
+      services {
+        name
+        ... on QBO {
+          accessToken
+        }
+      }
+    }
+    id
+    name
+  }
+}
+`

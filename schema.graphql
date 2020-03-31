@@ -1,0 +1,47 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+interface Service {
+  company: Company!
+  name: String!
+}
+
+type Company {
+  id: ID!
+  name: String!
+  organization: Organization!
+  services: [Service]
+}
+
+type Mutation {
+  organization(input: OrganizationInput): Organization
+  serviceQBO(input: QBOInput): QBO
+}
+
+type Organization @model {
+  companies: [Company]
+  id: ID!
+  name: String!
+}
+
+type QBO implements Service {
+  accessToken: String!
+  company: Company!
+  name: String!
+}
+
+type Query {
+  organization(id: ID!): Organization
+}
+
+input OrganizationInput {
+  id: ID!
+  name: String!
+}
+
+input QBOInput {
+  accessToken: String
+  name: String!
+}

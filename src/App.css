@@ -1,38 +1,86 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.organization-page-main-container {
+  background-color: #2d2d2d;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 600px;
+  grid-template-rows: 175px 1fr;
+  grid-gap: 1em;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #c5c5c5;
+  padding-top: 2em;
+  padding-left: 2em;
 }
 
-.App-link {
-  color: #61dafb;
+.create-organization-container {
+  text-align: left;
+  border-bottom: 1px solid #565656;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.organization-container {
+  text-align: left;
+}
+
+.company-list {
+  float: right;
+  font-size: 0.9em;
+}
+
+.section-title {
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.organization-name {
+  font-size: 0.9em;
+  text-transform: capitalize;
+  text-decoration: none;
+  list-style: none
+
+}
+
+
+.company-list-item {
+  text-decoration: none;
+  list-style: none;
+  text-transform: capitalize;
+}
+
+
+/* FORM */
+
+.create-organization-form {
+  border: 1px solid #565656;
+  margin-top: 1.2em;
+
+}
+
+.create-organization-form input {
+  width: 60%;
+  height: 2em;
+  margin: 1.2em 0;
+  margin-left:0.75em;
+
+}
+
+
+
+.create-organization-btn,
+.submit-create-organization-btn {
+  text-align: center;
+  padding: 0.5em;
+  background-color: #474747;
+  color: #c5c5c5;
+  border: 1px solid #565656;
+  font-size: 0.5em;
+  border-radius: 4px;
+  float: right;
+  margin-right: 5px;
+}
+
+.submit-create-organization-btn {
+  margin-top: 9px;
 }

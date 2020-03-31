@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import { withAuthenticator } from "aws-amplify-react";
+import Amplify from "aws-amplify";
+import config from "./config";
+import Organizations from "./containers/Organizations.js";
+import Form from "./containers/CreateOrganization.js";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+Amplify.configure(config);
+
+class App extends Component {
+  
+  state = {
+    visible: false
+  };
+
+  handleClick = () => {
+    this.setState({ visible: !this.state.visible });
+  };
+
+  renderCreateCompanyForm() {
+    if (this.state.visible) {
+      return <Form />;
+    }
+  }
+
+  render() {
+   
+    return (
+      <div className="organization-page-main-container">
+        <div className="create-organization-container">
+          <div className="section-title">
+            Create Organization
+            <button
+              className="create-organization-btn"
+              onClick={this.handleClick}
+            >
+              Create
+            </button>
+            {this.renderCreateCompanyForm()}
+          </div>
+        </div>
+        <div className="organization-container">
+          <span className="section-title">Organizations</span>
+            <Organizations  />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withAuthenticator(App, { 
+  includeGreetings: true,
+  usernameAttributes: 'email'
+ });
