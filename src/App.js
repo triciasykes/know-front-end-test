@@ -1,54 +1,58 @@
 import React, { Component } from "react";
 import "./App.css";
 import { withAuthenticator } from "aws-amplify-react";
-import Amplify from "aws-amplify";
+import Amplify, { API, graphqlOperation } from "aws-amplify";
 import config from "./config";
-import Organizations from "./containers/Organizations.js";
-import Form from "./containers/CreateOrganization.js";
-
+import OrganizationList from "./containers/OrganizationList";
+import CreateForm from "./containers/CreateOrganization.js";
 
 Amplify.configure(config);
 
 class App extends Component {
-  
   state = {
-    visible: false
-  };
+      profiles: [],
+      visible: false
+  }
+  async componentDidMount() {
+    try {
+      const getOrganizations = `
+      query getOrganizations {
+        organizations {
+          name
+          id
+        }
+      }
+      `;
+      const resp = await API.graphql(graphqlOperation(getOrganizations));
+      this.setState({
+      profiles: resp.data.organizations
+      });
+      console.log(this.state.profiles)
 
-  handleClick = () => {
-    this.setState({ visible: !this.state.visible });
-  };
-
-  renderCreateCompanyForm() {
-    if (this.state.visible) {
-      return <Form />;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  addNewProfile = (profileData) => {
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    }))
+  }
+  render(){
+      return (
+           <div className="organization-page-main-container">
+            <div className="create-organization-container">
+              <div className="section-title">
+                Create Organization
+              </div>
+                <CreateForm onSubmit={this.addNewProfile}/>
+              </div>
+              <OrganizationList profiles={this.state.profiles}/>
+          </div>
+      )
     }
   }
 
-  render() {
-   
-    return (
-      <div className="organization-page-main-container">
-        <div className="create-organization-container">
-          <div className="section-title">
-            Create Organization
-            <button
-              className="create-organization-btn"
-              onClick={this.handleClick}
-            >
-              Create
-            </button>
-            {this.renderCreateCompanyForm()}
-          </div>
-        </div>
-        <div className="organization-container">
-          <span className="section-title">Organizations</span>
-            <Organizations  />
-        </div>
-      </div>
-    );
-  }
-}
 
 export default withAuthenticator(App, { 
   includeGreetings: true,

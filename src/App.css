@@ -51,13 +51,14 @@
 
 
 /* FORM */
-
+.update-organization-form,
 .create-organization-form {
   border: 1px solid #565656;
   margin-top: 1.2em;
 
 }
 
+.update-organization-form input,
 .create-organization-form input {
   width: 60%;
   height: 2em;
@@ -67,7 +68,7 @@
 }
 
 
-
+.update-organization-btn,
 .create-organization-btn,
 .submit-create-organization-btn {
   text-align: center;
@@ -81,6 +82,7 @@
   margin-right: 5px;
 }
 
+.update-organization-btn,
 .submit-create-organization-btn {
   margin-top: 9px;
 }
