@@ -5,10 +5,7 @@
 .organization-page-main-container {
   background-color: #2d2d2d;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 600px;
-  grid-template-rows: 175px 1fr;
-  grid-gap: 1em;
+ 
   font-size: calc(10px + 2vmin);
   color: #c5c5c5;
   padding-top: 2em;

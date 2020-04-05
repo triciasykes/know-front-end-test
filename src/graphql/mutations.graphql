@@ -1,42 +1,6 @@
-# this is an auto generated file. This will be overwritten
-
-mutation Organization($input: OrganizationInput) {
-  organization(input: $input) {
-    companies {
-      id
-      name
-      organization {
-        id
-        name
-      }
-      services {
-        name
-        ... on QBO {
-          accessToken
-        }
-      }
-    }
-    id
-    name
-  }
-}
-mutation ServiceQbo($input: QBOInput) {
-  serviceQBO(input: $input) {
-    name
-    company {
-      id
-      name
-      organization {
-        id
-        name
-      }
-      services {
-        name
-        ... on QBO {
-          accessToken
-        }
-      }
-    }
-    accessToken
-  }
-}
+//   const createOrganization = `mutation CreateOrg($input: CreateOrganizationInput) {
+  //     createOrganization(input: $input) {
+  //         id
+  //         name
+  //       }
+  //     }`;
