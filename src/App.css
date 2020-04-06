@@ -5,7 +5,6 @@
 .organization-page-main-container {
   background-color: #2d2d2d;
   min-height: 100vh;
- 
   font-size: calc(10px + 2vmin);
   color: #c5c5c5;
   padding-top: 2em;
@@ -14,7 +13,6 @@
 
 .create-organization-container {
   text-align: left;
-  border-bottom: 1px solid #565656;
 }
 
 .organization-container {
@@ -52,6 +50,7 @@
 .create-organization-form {
   border: 1px solid #565656;
   margin-top: 1.2em;
+  width: 600px;
 
 }
 
@@ -76,10 +75,12 @@
   font-size: 0.5em;
   border-radius: 4px;
   float: right;
-  margin-right: 5px;
+  
 }
 
-.update-organization-btn,
-.submit-create-organization-btn {
+.update-organization-btn{
   margin-top: 9px;
+}
+.submit-create-organization-btn {
+  margin-top: 20px;
 }

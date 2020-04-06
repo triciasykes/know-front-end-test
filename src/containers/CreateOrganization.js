@@ -1,11 +1,10 @@
 import React from "react";
+import Header from './Header'
 
 const CreateForm = (props) => {
   return (
       <div>
-        <div className="section-title"> 
-        <p>Create Organization</p>
-         </div>
+        {/* <Header sectionTitle={"Create Organization"} /> */}
         <div className="create-organization-form">
 
           <form onSubmit={props.onSubmit} >

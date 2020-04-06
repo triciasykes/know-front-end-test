@@ -1,6 +1,1 @@
-//   const createOrganization = `mutation CreateOrg($input: CreateOrganizationInput) {
-  //     createOrganization(input: $input) {
-  //         id
-  //         name
-  //       }
-  //     }`;
+  

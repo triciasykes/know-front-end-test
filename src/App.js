@@ -9,17 +9,20 @@ import UpdateForm from "./containers/UpdateOrganization";
 
 Amplify.configure(config);
 
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       organizationList: [],
       newOrganizationName: "",
-      formVisible: false,
+      updateNameValue: "",
       selectedItem: {},
-      updateNameValue: ""
+      formVisible: false,
     };
   }
+
+  //LIST ALL
   async componentDidMount() {
     try {
       const getOrganizationList = `
@@ -39,10 +42,11 @@ class App extends Component {
     }
   }
 
+  //CREATE NEW
   createInputChangeHandler = event => {
     this.setState({ newOrganizationName: event.target.value });
   };
-
+  
   createHandleSubmit = async event => {
     event.preventDefault();
     const createOrganization = `mutation CreateOrg($input: CreateOrganizationInput) {
