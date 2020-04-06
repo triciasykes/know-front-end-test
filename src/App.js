@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 import { withAuthenticator } from "aws-amplify-react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import config from "./config";
 import OrganizationList from "./containers/OrganizationList";
 import CreateForm from "./containers/CreateOrganization.js";
 import UpdateForm from "./containers/UpdateOrganization";
+import { getOrganizations } from './graphql/queries'
+import gql from "graphql-tag";
 
-Amplify.configure(config);
+
 
 
 class App extends Component {
@@ -22,6 +23,8 @@ class App extends Component {
     };
   }
 
+
+ 
   //LIST ALL
   async componentDidMount() {
     try {
@@ -41,7 +44,6 @@ class App extends Component {
       console.log(err);
     }
   }
-
   //CREATE NEW
   createInputChangeHandler = event => {
     this.setState({ newOrganizationName: event.target.value });

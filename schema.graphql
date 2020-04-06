@@ -20,7 +20,7 @@ type Mutation {
   serviceQBO(input: QBOInput): QBO
 }
 
-type Organization @model {
+type Organization  {
   companies: [Company]
   id: ID!
   name: String!
