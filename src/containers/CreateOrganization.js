@@ -4,7 +4,7 @@ import Header from './Header'
 const CreateForm = (props) => {
   return (
       <div>
-        {/* <Header sectionTitle={"Create Organization"} /> */}
+        <Header sectionTitle={"Create Organization"} />
         <div className="create-organization-form">
 
           <form onSubmit={props.onSubmit} >
