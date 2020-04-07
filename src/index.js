@@ -4,14 +4,6 @@ import config from "./config";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import ApolloClient from "apollo-client";
-import { HttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from "react-apollo"
-import AWSAppSyncClient from 'aws-appsync';
-import gql from 'graphql-tag'
-
-
 
 import * as serviceWorker from "./serviceWorker";
 
@@ -39,20 +31,9 @@ const appConfig = {
 Amplify.configure(appConfig);
 
 
-const httpLink = new HttpLink({
-  uri: appConfig.aws_appsync_graphqlEndpoint
-})
-const cache = new InMemoryCache();
-
-const client = new ApolloClient({
-  link: httpLink,
-  cache
-});
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+    <App/>,
   document.getElementById("root")
 );
 

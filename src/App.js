@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
-import { withAuthenticator } from "aws-amplify-react";
+import { withAuthenticator, propStyle } from "aws-amplify-react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import OrganizationList from "./containers/OrganizationList";
 import CreateForm from "./containers/CreateOrganization.js";
 import UpdateForm from "./containers/UpdateOrganization";
-import { getOrganizations } from './graphql/queries'
-import gql from "graphql-tag";
+
+import * as queries from './graphql/queries'
 
 
-
-
+    
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,21 +21,11 @@ class App extends Component {
       formVisible: false,
     };
   }
-
-
  
   //LIST ALL
   async componentDidMount() {
     try {
-      const getOrganizationList = `
-      query getOrganizations {
-        organizations {
-          name
-          id
-        }
-      }
-      `;
-      const resp = await API.graphql(graphqlOperation(getOrganizationList));
+      const resp = await API.graphql(graphqlOperation(queries.GET_ORGANIZATIONS));
       this.setState({
         organizationList: resp.data.organizations
       });
@@ -44,24 +33,19 @@ class App extends Component {
       console.log(err);
     }
   }
-  //CREATE NEW
+  
+  // CREATE NEW
   createInputChangeHandler = event => {
     this.setState({ newOrganizationName: event.target.value });
   };
   
   createHandleSubmit = async event => {
     event.preventDefault();
-    const createOrganization = `mutation CreateOrg($input: CreateOrganizationInput) {
-      createOrganization(input: $input) {
-          id
-          name
-        }
-      }`;
 
     try {
       const newOrg = { name: this.state.newOrganizationName };
       const resp = await API.graphql(
-        graphqlOperation(createOrganization, { input: newOrg })
+        graphqlOperation(queries.CREATE_ORGANIZATION, { input: newOrg })
       );
       const addedOrganization = resp.data.createOrganization;
       this.setState(state => {
@@ -77,6 +61,7 @@ class App extends Component {
     }
   };
 
+//UPDATE ORG
   generateUpdateForm() {
     if (this.state.formVisible) {
       return (
@@ -90,7 +75,7 @@ class App extends Component {
       );
     }
   }
-  handleClick = organization => {
+  updateHandleClick = organization => {
     try {
       this.setState({
         selectedItem: organization,
@@ -113,19 +98,9 @@ class App extends Component {
       id: this.state.selectedItem.id,
       name: this.state.updateNameValue
     };
-    const updateOrganization = `
-        mutation updateOrg {
-            updateOrganization(input: {
-                id: "${organization.id}"
-                name: "${organization.name}"
-            }) {
-                id
-                name
-            }
-        }
-        `;
+    
     try {
-      await API.graphql(graphqlOperation(updateOrganization));
+      await API.graphql(graphqlOperation(queries.UPDATE_ORGANIZATION));
       const newOrganizationList = this.state.organizationList.map(item => {
         if (item.id === organization.id) item.name = this.state.updateNameValue;
         return item;
@@ -152,7 +127,7 @@ class App extends Component {
         <div>
           <OrganizationList
             organizationList={this.state.organizationList}
-            handleClick={this.handleClick}
+            handleClick={this.updateHandleClick}
           />
         </div>
           { this.generateUpdateForm() }
@@ -160,7 +135,7 @@ class App extends Component {
     );
   }
 }
-
+  
 export default withAuthenticator(App, {
   includeGreetings: true,
   usernameAttributes: "email"
